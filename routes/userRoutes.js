@@ -11,17 +11,19 @@ router.post('/forgotPassword', authController.forgotPassword);
 router.patch('/resetPassword/:token', authController.resetPassword);
 
 router.patch('/updateMyPassword', authController.protect, authController.updatePassword);
+router.get('/me', authController.protect, userController.getMe, userController.getUser);
 router.patch('/updateMe', authController.protect, userController.updateMe);
 router.delete('/deleteMe', authController.protect, userController.deleteMe);
 
 
 router.route('/')
-    .get(authController.protect, userController.getAllUsers);
-    //.post(authController.protect, userController.createUser);
+    .get(authController.protect, authController.restrictTo('admin'), userController.getAllUsers)
+    .post(authController.protect, authController.restrictTo('admin'), userController.createUser);
 
-// router.route('/:id')
-//     .get(authController.protect, userController.getUser)
-//     .patch(authController.protect, userController.updateUser)
-//     .delete(authController.protect, userController.deleteUser);
+router.route('/:id')
+    .get(authController.protect, authController.restrictTo('admin'), userController.getUser)
+    .patch(authController.protect, authController.restrictTo('admin'), userController.updateUser)
+    .delete(authController.protect, authController.restrictTo('admin'), userController.deleteUser);
+
 
 module.exports = router;

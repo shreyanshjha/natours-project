@@ -25,6 +25,7 @@ class APIFeatures {
     }
 
     sort() {
+        // eg:- api/v1/tours?duration[gte]=10&sort=price:asc,ratingsAverage:desc
         if(this.queryString.sort) { 
             const sortFields = this.queryString.sort.split(',');
             const sortObj = {};
