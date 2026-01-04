@@ -8,6 +8,7 @@ function filterObj(obj, ...allowedFields) {
     Object.keys(obj).forEach(el => {
         if (allowedFields.includes(el)) newObj[el] = obj[el];
     });
+    return newObj;
 }
 exports.getAllUsers = factory.getAll(User);
 // exports.getAllUsers = catchAsync(async (req, res, next) => {
